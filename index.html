@@ -4,82 +4,51 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"/>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="assets/css/style.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
     <title>Weather Dashboard</title>
-  </head>
+</head>
+<body>
 
-  <body>
+    <header class="container-fluid text-center text-white bg-dark p-2">
+        <h1>Weather Dashboard</h1>
+      </header>
 
-    <header class="container-fluid text-light bg-dark text-center">
-      <h3 class="display-4">Weather Dashboard</h3>
-    </header>
+    <div class="container-fluid"> 
+        <div class="row"> 
+            <div class="col-lg-3 bg-light pt-3 pb-3">
+                <div class="card">
+                    <div class="card-header text-center"><h3>SEARCH FOR A CITY</h3></div>
+                    <div class="input-group mb-3 px-2"> 
+                        <input id="citySearched" type="text" class="form-control" placeholder="Enter city name..." class="input-group-append">
+                        <button id="searchButton" class="btn btn-primary" type="button" id="button-addon2"><i class="fa fa-search"></i></button>
+                    </div>
+                     
+                        <div class="card mt-4">
+                            <ul class="list-group list-group-flush list"></ul>
+                        </div> 
 
-    <div class="container">
-
-        <div class="row">
-            <div class="col-md-4 bg-light border">
-                <h4>SEARCH FOR A CITY</h4>
-                <div class="input-group mb-3">
-                    <input class="form-control" id="city-input" placeholder="Enter city name" class="input-group-append">
-                        <button id="select-city" class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
                 </div>
+            </div> 
 
-                <!-- List of previous cities searched -->
-                <div class="card"> 
-                  <ul class="list-group list-group-flush list">
-                  </ul>
-              </div> 
-            </div>
-
-            <!-- Current Weather -->
-            <div class="col-md-8 bg-white border">
-                <div class="current weather">
-                    <h4><u>CURRENT WEATHER</u></h4>
-
-                        <div class="row">
-                            <div class="col-12">
-                                <h5><span id="city-name"></span><span id="todays-date"><img id="weather-icon" src=""></img></h5>
-                            </div>
-
-                            <div class="row">
-                              <div class="col-12 ml-3">
-                                <p>Temperature: <span class="temp"></span></p>
-                                <p>Humidity: <span class="humidity"></span></p>
-                                <p>Wind: <span class="wind"></span></p>
-                                <p>UV-Index: <span class="uv-index"></span></p>
-                              </div>
-                            </div>
-                        </div>
-                        
-                        <!-- 5-Day Forecast -->
-                        <div class="row">
-                          <div class="col-12 bg-white border">
-                            <div class="forecast">
-                                <h4><u>5-Day Forecast</u></h4>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="row">
-
-                        </div>
-                </div>
-            </div>
-
-        </div>
-              
-    </div>
-    
-
+            <div class="col-lg-9"> 
+                <div id="currentCity" class="mt-4"></div>
+            </div> 
         
+        </div> 
 
+        <div class="mt-4 col-md-12">
+            <div id="forecastcard" class= "card hide">
+                <div class="forecastheader card-header text-center"><h3>5-Day Forecast</h3></div>
+                <div id="forecast" class="row justify-content-md-center p-3"></div>
+            </div>
+
+        </div> 
+
+    </div> 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="script.js"></script>
-
-  </body>
+</body>
 </html>

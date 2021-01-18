@@ -1,5 +1,5 @@
-h3 {
-    font-family: Arial, Helvetica, sans-serif
+.forecastheader {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 h4 {
@@ -7,11 +7,10 @@ h4 {
     text-align: center;
 }
 
-h5 {
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    text-align: center;
+.hide {
+    display: none;
 }
 
-#city-name {
-    font-size: large;
+.show {
+    display: block;
 }
