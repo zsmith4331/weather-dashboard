@@ -99,14 +99,14 @@ function forecastedWeather () {
     // For Loop //
     for (var i = 0; i <forecastArray.length; i++) {
 
-      // Constructing HTML containing the current weather informaiton //
+      // Constructing HTML containing the forecasted weather informaiton //
       // Create card with bootstrap //
       var forecastCard = $("<div>").addClass("card col-md-2 ml-4 bg-primary text-white");
       var forecastCardBody = $("<div>").addClass("card-body p-3 forecastBody")
 
       // Grab date and create HTML header //
       var forecastDate = new Date(forecastArray[i].dt * 1000).toLocaleDateString("en-US");
-      var forecastDateHeader = $("<h4>").addClass("card-title").text(forecastDate);
+      var forecastDateHeader = $("<h5>").addClass("card-title").text(forecastDate);
 
       // Grab Icon and create HTML image //
       var forecastIconURL = "https://openweathermap.org/img/wn/" + forecastArray[i].weather[0].icon + "@2x.png";
