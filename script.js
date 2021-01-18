@@ -40,8 +40,7 @@ $("#searchButton").on("click", function() {
     forecastedWeather(response);
     recentSearchList();
     
-    })
-    
+    })  
   });
 
   // Stores recent searched cities in a list //
@@ -50,7 +49,6 @@ $("#searchButton").on("click", function() {
     $(".list").append(listItem);
   }
 
-  
   // Calling current weather function //
   function currentWeather(response) {
 
@@ -69,9 +67,9 @@ $("#searchButton").on("click", function() {
     var temperature = $("<p>").addClass("card-text pl-4 current-temp").text("Temperature: " + tempF.toFixed(0) + " °F");
     var humidity = $("<p>").addClass("card-text pl-4 current-humidity").text("Humidity: " + response.main.humidity + "%");
     var wind = $("<p>").addClass("card-text pl-4 pb-3 current-wind").text("Wind Speed: " + response.wind.speed + " MPH");
-    var icon = $("<img>").attr("src", "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png")
+    var icon = $("<img>").attr("src", "https://openweathermap.org/img/wn/" + response.weather[0].icon + "@2x.png")
 
-    // Adding current weather content to HTML //
+    // Appending current weather content to HTML //
     $("#currentCity").append(card);
     card.append(cardHeader, todaysDate, cityName, temperature, humidity, wind);
     cityName.append(icon);   
@@ -83,53 +81,50 @@ function forecastedWeather () {
 
   $('#forecastcard').addClass('show');
 
-  // URL needed to query openweather API for the current weather//
+  // URL needed to query openweather API for the forecasted weather //
   var forecastWeatherURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityInput + "&appid=" + APIKey;
 
-  
-  $.ajax({
+    $.ajax({
     url: forecastWeatherURL,
     method: "GET"
   }).then(function (response){
-
+  
     // Clears forecasted weather upon new search //
     $('#forecast').empty();
 
-    // variable to hold response.list
-    var results = response.list;
-    console.log(results)
+    // Array to grab the same time for each forecasted day //
+    var forecastArray = [response.list[5], response.list[13], response.list[21], response.list[29], response.list[37]];
+    console.log(forecastArray)
 
-    for (let i = 0; i < results.length; i++) {
+    // For Loop //
+    for (var i = 0; i <forecastArray.length; i++) {
 
-      var day = Number(results[i].dt_txt.split('-')[2].split(' ')[0]);
-      var hour = results[i].dt_txt.split('-')[2].split(' ')[1];
-      console.log(day);
-      console.log(hour);
+      // Constructing HTML containing the current weather informaiton //
+      // Create card with bootstrap //
+      var forecastCard = $("<div>").addClass("card col-md-2 ml-4 bg-primary text-white");
+      var forecastCardBody = $("<div>").addClass("card-body p-3 forecastBody")
 
-      if(results[i].dt_txt.indexOf("12:00:00") !== -1){
-        
-        // Coverts the temperature from Kelvin to Fahrenheit //
-        var tempF = (results[i].main.temp - 273.15) * 1.80 + 32;
+      // Grab date and create HTML header //
+      var forecastDate = new Date(forecastArray[i].dt * 1000).toLocaleDateString("en-US");
+      var forecastDateHeader = $("<h4>").addClass("card-title").text(forecastDate);
 
+      // Grab Icon and create HTML image //
+      var forecastIconURL = "https://openweathermap.org/img/wn/" + forecastArray[i].weather[0].icon + "@2x.png";
+      var forecastIcon = $("<img>").attr("src", forecastIconURL);
 
-        // Constructing HTML containing the current weather informaiton //
-        // Create card with bootstrap //
-        var forecastCard = $("<div>").addClass("card col-md-2 ml-4 bg-primary text-white");
-        var forecastCardBody = $("<div>").addClass("card-body p-3 forecastBody")
-        var forecastDate = $("<h4>").addClass("card-title").text(date.toLocaleDateString('en-US'));
-        var forecastTemperature = $("<p>").addClass("card-text forecastTemp").text("Temperature: " + tempF.toFixed(0) + " °F");
-        var forecastHumidity = $("<p>").addClass("card-text forecastHumidity").text("Humidity: " + results[i].main.humidity + "%");
-        var forecastIcon = $("<img>").attr("src", "https://openweathermap.org/img/w/" + results[i].weather[0].icon + ".png")
+      // Grab temperature and create HTML element //
+      var tempF = (forecastArray[i].main.temp - 273.15) * 1.80 + 32;
+      var forecastTemperature = $("<p>").addClass("card-text forecastTemp").text("Temperature: " + tempF.toFixed(0) + " °F");
 
+      // Grab humidity and create HTML element //
+      var forecastHumidPercentage = forecastArray[i].main.humidity;
+      var forecastHumidity = $("<p>").addClass("card-text forecastHumidity").text("Humidity: " + forecastHumidPercentage + "%");
 
-        // Adding current weather content to HTML //
-        $("#forecast").append(forecastCard);
-        forecastCardBody.append(forecastDate, forecastIcon, forecastTemperature, forecastHumidity);
-        forecastCard.append(forecastCardBody);
-        
-      }
-    }
-  });
+      // Appending current weather content to HTML //
+      $("#forecast").append(forecastCard);
+      forecastCardBody.append(forecastDateHeader, forecastIcon, forecastTemperature, forecastHumidity);
+      forecastCard.append(forecastCardBody);     
 
-}
-
+    }   
+  }
+  )};
