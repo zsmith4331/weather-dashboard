@@ -40,13 +40,17 @@ $("#searchButton").on("click", function() {
     forecastedWeather(response);
     recentSearchList();
     
-    })  
+    })
+
   });
 
   // Stores recent searched cities in a list //
   function recentSearchList() {
-    let listItem = $("<li>").addClass("list-group-item").text(cityInput);
-    $(".list").append(listItem);
+    var buttonList = $("<button>").text(cityInput)
+    buttonList.addClass("btn btn-outline-light container-fluid bg-primary").text(cityInput);
+    buttonList.attr("value", cityInput)
+    $(".list").append(buttonList);
+
   }
 
   // Calling current weather function //
