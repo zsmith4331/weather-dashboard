@@ -70,14 +70,42 @@ $("#searchButton").on("click", function() {
     var cityName = $("<h3>").addClass("card-title pl-3 pb-1").text(response.name);
     var temperature = $("<p>").addClass("card-text pl-4 current-temp").text("Temperature: " + tempF.toFixed(0) + " °F");
     var humidity = $("<p>").addClass("card-text pl-4 current-humidity").text("Humidity: " + response.main.humidity + "%");
-    var wind = $("<p>").addClass("card-text pl-4 pb-3 current-wind").text("Wind Speed: " + response.wind.speed + " MPH");
+    var wind = $("<p>").addClass("card-text pl-4 current-wind").text("Wind Speed: " + response.wind.speed + " MPH");
     var icon = $("<img>").attr("src", "https://openweathermap.org/img/wn/" + response.weather[0].icon + "@2x.png")
+    var uvDisp = $("<p>").attr("class", "card-text pl-4 pb-3").text("UV Index: ");
 
     // Appending current weather content to HTML //
     $("#currentCity").append(card);
-    card.append(cardHeader, todaysDate, cityName, temperature, humidity, wind);
-    cityName.append(icon);   
-   
+    card.append(cardHeader, todaysDate, cityName, temperature, humidity, wind, uvDisp);
+    cityName.append(icon); 
+    
+   ////// UV Index ///////
+
+    // URL needed to query openweather API for the UV Index //
+    var uvURL = "https://api.openweathermap.org/data/2.5/uvi?appid=" + APIKey + "&lat=" + response.coord.lat + "&lon=" + response.coord.lat;
+
+    // AJAX call //        
+    $.ajax({
+      url: uvURL,
+      method: "GET"
+    })
+    .then(function (response) {
+      var uvIndex = response.value;
+      var uvColor;
+        if (uvIndex <= 3) {
+          uvColor = "green";
+        }
+        else if (uvIndex >= 3 || uvIndex <= 6) {
+          uvColor = "yellow";
+        }
+        else if (uvIndex >= 6 || uvIndex <= 8) {
+          uvColor = "orange";
+        }
+        else {
+          uvColor = "red";
+        }
+        uvDisp.append($("<span>").attr("class", "uvIndex").attr("style", ("background-color:" + uvColor)).text(uvIndex));
+    });
   }
 
 // Calling forecasted weather function //
