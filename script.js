@@ -138,19 +138,23 @@ function forecastedWeather () {
 
       // Grab date and create HTML header //
       var forecastDate = new Date(forecastArray[i].dt * 1000).toLocaleDateString("en-US");
-      var forecastDateHeader = $("<h5>").addClass("card-title").text(forecastDate);
+      var forecastDateHeader = $("<h5>").addClass("card-title text-center").text(forecastDate);
 
       // Grab Icon and create HTML image //
       var forecastIconURL = "https://openweathermap.org/img/wn/" + forecastArray[i].weather[0].icon + "@2x.png";
-      var forecastIcon = $("<img>").attr("src", forecastIconURL);
+      // ***This can be done in one line or two *** //
+      var forecastIcon = $("<img>").attr("src", forecastIconURL).addClass("center-block d-block mx-auto");
+      // var forecastIconCenter = $(forecastIcon).addClass("center-block d-block mx-auto");
+      
+
 
       // Grab temperature and create HTML element //
       var tempF = (forecastArray[i].main.temp - 273.15) * 1.80 + 32;
-      var forecastTemperature = $("<p>").addClass("card-text forecastTemp").text("Temperature: " + tempF.toFixed(0) + " °F");
+      var forecastTemperature = $("<p>").addClass("card-text text-center forecastTemp").text("Temperature: " + tempF.toFixed(0) + " °F");
 
       // Grab humidity and create HTML element //
       var forecastHumidPercentage = forecastArray[i].main.humidity;
-      var forecastHumidity = $("<p>").addClass("card-text forecastHumidity").text("Humidity: " + forecastHumidPercentage + "%");
+      var forecastHumidity = $("<p>").addClass("card-text text-center forecastHumidity").text("Humidity: " + forecastHumidPercentage + "%");
 
       // Appending current weather content to HTML //
       $("#forecast").append(forecastCard);
