@@ -21,6 +21,10 @@ $("#searchButton").on("click", function() {
 
   // Grabs Data from form after the search button is clicked //
   cityInput = $("#citySearched").val();
+  var data = JSON.parse(localStorage.getItem(".list")) || [];
+  data.push(cityInput);
+  localStorage.setItem(".list", JSON.stringify(data));
+  console.log(cityInput)
   
   // Clears Data from the form after the search button is clicked //
   $("#citySearched").val("");  
@@ -43,6 +47,10 @@ $("#searchButton").on("click", function() {
     })
 
   });
+  console.log(cityInput)
+  $(document).on("click", ".list", cityInput);
+  console.log(cityInput)
+
 
   // Stores recent searched cities in a list //
   function recentSearchList() {
